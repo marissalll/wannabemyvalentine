@@ -1,8 +1,9 @@
 import './App.css';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Background from './components/Background';
 import { negativeTexts, positiveTexts } from './buttonTexts';
+import { useState, useEffect } from 'react';
+
 
 function App() {
   const navigate = useNavigate();
@@ -25,18 +26,20 @@ function App() {
   };
 
   // Handle Yes button click
-  const handleYesClick = () => {
-    setYesClicks((prevClick) => {
-      const next = prevClick + 1;
-      if (next === positiveTexts.length) {
-        alert('Yay good choice baby x');
-        navigate('/yes');
-      }
-      return next;
-    });
 
+  useEffect(() => {
+    if (yesClicks !== positiveTexts.length) return;
+
+    alert('Yay good choice baby x');
+    navigate('/yes');
+  }, [yesClicks, navigate]);
+
+
+  const handleYesClick = () => {
+    setYesClicks((prev) => prev + 1);
     setYesText((prev) => (prev + 1) % positiveTexts.length);
   };
+
 
   return (
     <div className="max-w-screen h-screen overflow-hidden relative p-4 md:p-8 text-center">
@@ -73,8 +76,8 @@ function App() {
               onMouseOver={() => setSize((s) => Math.max(0.4, s - 0.05))}
               onMouseOut={() => setSize((s) => Math.min(1, s + 0.05))}
               style={{
-                transform: `scale(${size})`,
-                opacity: 1 - noClicks / MAX_NO_CLICKS,
+                transform: `scale(${size})`
+
               }}
               className="inline-block bg-red-600 text-slate-100 border-2 border-solid border-red-800 px-6 py-3 md:px-12 md:py-6 text-center rounded-[20%] text-sm md:text-2xl mx-1 my-1 cursor-pointer transition-all duration-300 max-w-xs md:max-w-sm"
             >
