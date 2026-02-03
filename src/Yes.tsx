@@ -4,16 +4,16 @@ import './Yes.css';
 const Yes = () => {
   // Gifts inside the envelopes
   const messages = [
-    'You get massage this evening.',
-    'You can choose the movie we are watching.',
-    'I cook three course dinner.',
+    'A massage!!',
+    'You can choose the movie we watch, yes it can be a documentary',
+    'I cook three course dinner for u (without injuring myself)',
   ];
 
   const envelopes = messages.map((message, index) => (
     <div key={index} className="flex flex-col items-center">
       <Envelope id={index}>{message}</Envelope>
       <p className="text-slate-100 mb-2 text-2xl">
-        {['For today', 'Anytime', 'Romantic time!'][index]}
+        {['For this month', 'Anytime', 'Date night!'][index]}
       </p>
     </div>
   ));
